@@ -1,0 +1,53 @@
+:host {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-card {
+    margin: 1rem 0;
+    padding: 0;
+    width: 45%;
+    aspect-ratio: 2 / 1;
+    background-color: #80808017;
+    border: none;
+    border-radius: 10px;
+    box-shadow: none;
+}
+
+.image-card .image-card-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+
+    h3 {
+        font-weight: 500;
+        font-size: 1.25rem;
+    }
+
+    #image-upload-button {
+        padding: 0.8rem 1.8rem;
+        border-radius: 5px;
+        background-color: white;
+        border: 2px solid grey;
+        color: black;
+
+        mat-icon {
+            height: 1.2rem;
+            width: 1.2rem;
+            font-size: 1.2rem;
+            color: black;
+        }
+    }
+
+    mat-icon {
+        height: 2rem;
+        width: 2rem;
+        font-size: 2rem;
+        color: #808080c2;
+    }
+}

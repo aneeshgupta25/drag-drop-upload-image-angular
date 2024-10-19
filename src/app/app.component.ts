@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { UploadImageComponent } from "./upload-image/upload-image.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [],
+  imports: [UploadImageComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
