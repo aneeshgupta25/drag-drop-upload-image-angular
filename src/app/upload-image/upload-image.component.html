@@ -1,29 +1,47 @@
-<mat-card appUploadImage class="image-card">
-  <mat-card-content class="image-card-content">
-    <mat-icon
-      aria-hidden="false"
-      aria-label="Add Image Icon"
-      fontSet="material-icons-outlined"
-      >add_photo_alternate
-    </mat-icon>
-    <h3>
-      Drag and drop an image or
-    </h3>
-    <input type="file" accept="image/*" #imgInput style="display: none;" />
-    <button
-      mat-stroked-button
-      disableRipple="true"
-      id="image-upload-button"
-      color="grey"
-      (click)="imgInput.click()"
+<mat-card class="image-card-container">
+  @if(!imageAdded()) {
+  <mat-card appUploadImage (dropFile)="onDropFile($event)" class="image-card">
+    <mat-card-content
+      class="image-card-content"    
     >
       <mat-icon
         aria-hidden="false"
         aria-label="Add Image Icon"
-        fontSet="material-icons-outlined"
+        fontSet="material-icons-outlined"        
         >add_photo_alternate
       </mat-icon>
-      Upload Image
-    </button>
-  </mat-card-content>
+      <h3>
+        Drag and drop an image or
+      </h3>
+      <input
+        type="file"
+        accept="image/*"
+        (change)="onImageUpload($event)"
+        #imgInput
+        style="display: none;"
+      />
+      <button
+        mat-stroked-button
+        disableRipple="true"
+        id="image-upload-button"
+        color="grey"
+        (click)="imgInput.click()"        
+      >
+        <mat-icon
+          aria-hidden="false"
+          aria-label="Add Image Icon"
+          fontSet="material-icons-outlined"
+          >add_photo_alternate
+        </mat-icon>
+        Upload Image
+      </button>
+    </mat-card-content>
+  </mat-card>
+  } @else {
+  <mat-card class="image-card">
+    <mat-card-content class="image-card-content">
+      <img [src]="url()" class="image" />
+    </mat-card-content>
+  </mat-card>
+  }
 </mat-card>

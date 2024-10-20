@@ -4,16 +4,17 @@ import { AfterViewInit, Directive, ElementRef, HostBinding, HostListener, inject
     selector: '[appUploadImage]',
     standalone: true,
 })
-export class UploadImageDirective implements AfterViewInit {
+export class UploadImageDirective {
 
     hostElement = inject(ElementRef);
     hostElementRect: DOMRect | undefined = undefined;
+    dropFile = output<{ file: File, url: string }>();
 
     @HostBinding('style.background-color') hostBackgroundColor!: string;
     @HostListener('dragover', ["$event"]) dragOver(event: DragEvent) {
         event.preventDefault();
         event.stopPropagation();
-        this.imageDragOver.emit();
+        // this.imageDragOver.emit();
 
         this.hostBackgroundColor = DropColor.DURING_DROP;
     }
@@ -21,12 +22,14 @@ export class UploadImageDirective implements AfterViewInit {
         event.preventDefault();
         event.stopPropagation();
 
+        this.hostElementRect = this.hostElement.nativeElement.getBoundingClientRect();
+
         if (event.clientX < this.hostElementRect!.left ||
             event.clientX > this.hostElementRect!.right ||
             event.clientY < this.hostElementRect!.top ||
             event.clientY > this.hostElementRect!.bottom) {
 
-            this.imageDragLeave.emit();
+            //     this.imageDragLeave.emit();            
             this.hostBackgroundColor = DropColor.BEFORE_DROP;
         }
 
@@ -43,13 +46,8 @@ export class UploadImageDirective implements AfterViewInit {
         const url = window.URL.createObjectURL(file);
         this.dropFile.emit({ file, url });
     }
-    imageDragOver = output();
-    imageDragLeave = output();
-    dropFile = output<{ file: File, url: string }>();
-
-    ngAfterViewInit(): void {
-        this.hostElementRect = this.hostElement.nativeElement.getBoundingClientRect();
-    }
+    // imageDragOver = output();
+    // imageDragLeave = output();
 
 }
 
