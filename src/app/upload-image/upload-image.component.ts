@@ -18,13 +18,14 @@ export class UploadImageComponent {
   file = signal<File | undefined>(undefined);
   url = signal<string>('');
   imageAdded = signal(false);
+  dragInAction = signal(false);
 
-  onDragOver(event: DragEvent) {
-    //handle event (eg, change background according to the values defined in directive)
+  onDragOver() {
+    this.dragInAction.set(true);
   }
 
-  onDragLeave(event: DragEvent) {
-    //handle event (eg, change background according to the values defined in directive)
+  onDragLeave() {
+    this.dragInAction.set(false);
   }
 
   onDropFile(event: { file: File, url: string }) {

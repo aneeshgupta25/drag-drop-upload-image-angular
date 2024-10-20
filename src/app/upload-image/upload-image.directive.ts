@@ -9,12 +9,14 @@ export class UploadImageDirective {
     hostElement = inject(ElementRef);
     hostElementRect: DOMRect | undefined = undefined;
     dropFile = output<{ file: File, url: string }>();
+    dragOverEvent = output();
+    dragLeaveEvent = output();
 
     @HostBinding('style.background-color') hostBackgroundColor!: string;
     @HostListener('dragover', ["$event"]) dragOver(event: DragEvent) {
         event.preventDefault();
         event.stopPropagation();
-        // this.imageDragOver.emit();
+        this.dragOverEvent.emit();
 
         this.hostBackgroundColor = DropColor.DURING_DROP;
     }
@@ -29,7 +31,7 @@ export class UploadImageDirective {
             event.clientY < this.hostElementRect!.top ||
             event.clientY > this.hostElementRect!.bottom) {
 
-            //     this.imageDragLeave.emit();            
+            this.dragLeaveEvent.emit();
             this.hostBackgroundColor = DropColor.BEFORE_DROP;
         }
 
@@ -46,8 +48,6 @@ export class UploadImageDirective {
         const url = window.URL.createObjectURL(file);
         this.dropFile.emit({ file, url });
     }
-    // imageDragOver = output();
-    // imageDragLeave = output();
 
 }
 

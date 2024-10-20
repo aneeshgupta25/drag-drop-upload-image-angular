@@ -1,13 +1,22 @@
 <mat-card class="image-card-container">
   @if(!imageAdded()) {
-  <mat-card appUploadImage (dropFile)="onDropFile($event)" class="image-card">
-    <mat-card-content
-      class="image-card-content"    
-    >
+  <mat-card
+    appUploadImage
+    (dragLeaveEvent)="onDragLeave()"
+    (dragOverEvent)="onDragOver()"
+    (dropFile)="onDropFile($event)"
+    class="image-card"
+  >
+    @if(dragInAction()) {
+    <mat-card-content class="image-card-content">
+      <h3>Drop the image here</h3>
+    </mat-card-content>
+    } @else {
+    <mat-card-content class="image-card-content">
       <mat-icon
         aria-hidden="false"
         aria-label="Add Image Icon"
-        fontSet="material-icons-outlined"        
+        fontSet="material-icons-outlined"
         >add_photo_alternate
       </mat-icon>
       <h3>
@@ -25,7 +34,7 @@
         disableRipple="true"
         id="image-upload-button"
         color="grey"
-        (click)="imgInput.click()"        
+        (click)="imgInput.click()"
       >
         <mat-icon
           aria-hidden="false"
@@ -36,6 +45,7 @@
         Upload Image
       </button>
     </mat-card-content>
+    }
   </mat-card>
   } @else {
   <mat-card class="image-card">
